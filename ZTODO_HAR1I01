@@ -7,5 +7,31 @@
 *       text
 *----------------------------------------------------------------------*
 MODULE user_command_0528 INPUT.
+  CASE sy-ucomm.
+    WHEN 'ADD1'.
+      wa_todo-task_no = ztodol_har1-task_no.
+      wa_todo-task_det = ztodol_har1-task_det.
+      wa_todo-date_cr = ztodol_har1-date_cr.
+      wa_todo-date_due = ztodol_har1-date_due.
+      INSERT ztodol_har1 FROM wa_todo.
+      IF sy-subrc = 0.
+        MESSAGE 'TASK CREATED' TYPE 'I'.
+      ELSE.
+        MESSAGE 'ERROR' TYPE 'I'.
+      ENDIF.
+    WHEN 'EDIT1'.
+      wa_todo-task_no = ztodol_har1-task_no.
+      wa_todo-task_det = ztodol_har1-task_det.
+      wa_todo-date_cr = ztodol_har1-date_cr.
+      wa_todo-date_due = ztodol_har1-date_due.
+      UPDATE ztodol_har1 FROM wa_todo.
+      IF sy-subrc = 0.
+        MESSAGE 'TASK EDITED' TYPE 'I'.
+      ELSE.
+        MESSAGE 'ERROR' TYPE 'I'.
+      ENDIF.
+    WHEN 'SHOW1'.
+      SUBMIT ZALV_TODO VIA SELECTION-SCREEN AND RETURN.
+ ENDCASE.
 
 ENDMODULE.
